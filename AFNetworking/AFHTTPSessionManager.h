@@ -295,6 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param URLString The URL string used to create the request URL.
  @param parameters The parameters to be encoded according to the client request serializer.
+ @param block A block that takes a single argument and appends data to the HTTP body. The block argument is an object adopting the `AFMultipartFormData` protocol.
  @param uploadProgress A block object to be executed when the download progress is updated. Note this block is called on the session queue, not the main queue.
  @param downloadProgress A block object to be executed when the upload progress is updated. Note this block is called on the session queue, not the main queue.
  @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the request operation, and the response object created by the client response serializer.
@@ -304,7 +305,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                        URLString:(NSString *)URLString
-                                      parameters:(id)parameters
+                                      parameters:(nullable id)parameters
+                       constructingBodyWithBlock:(nullable void (^)(id <AFMultipartFormData> formData))block
                                   uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
                                 downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
                                          success:(void (^)(NSURLSessionDataTask *, id))success
